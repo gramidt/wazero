@@ -179,6 +179,11 @@ func (f *FunctionInstance) Call(ctx context.Context, params ...uint64) (ret []ui
 	return
 }
 
+// GlobalVal is an internal hack to get the lower 64 bits of a global.
+func (m *CallContext) GlobalVal(idx Index) uint64 {
+	return m.module.Globals[idx].Val
+}
+
 // ExportedGlobal implements the same method as documented on api.Module.
 func (m *CallContext) ExportedGlobal(name string) api.Global {
 	exp, err := m.module.getExport(name, ExternTypeGlobal)
